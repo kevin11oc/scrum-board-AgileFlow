@@ -1,0 +1,12 @@
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\bin\Debug\net8.0\AgileFlow.Domain.deps.json
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\bin\Debug\net8.0\AgileFlow.Domain.dll
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\bin\Debug\net8.0\AgileFlow.Domain.pdb
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\obj\Debug\net8.0\AgileFlow.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\obj\Debug\net8.0\AgileFlow.Domain.AssemblyInfoInputs.cache
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\obj\Debug\net8.0\AgileFlow.Domain.AssemblyInfo.cs
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\obj\Debug\net8.0\AgileFlow.Domain.csproj.CoreCompileInputs.cache
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\obj\Debug\net8.0\AgileFlow.Domain.sourcelink.json
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\obj\Debug\net8.0\AgileFlow.Domain.dll
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\obj\Debug\net8.0\refint\AgileFlow.Domain.dll
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\obj\Debug\net8.0\AgileFlow.Domain.pdb
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\obj\Debug\net8.0\ref\AgileFlow.Domain.dll

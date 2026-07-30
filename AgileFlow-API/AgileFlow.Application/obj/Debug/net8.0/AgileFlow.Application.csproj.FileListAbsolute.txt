@@ -1,0 +1,16 @@
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\bin\Debug\net8.0\AgileFlow.Application.deps.json
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\bin\Debug\net8.0\AgileFlow.Application.dll
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\bin\Debug\net8.0\AgileFlow.Application.pdb
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\bin\Debug\net8.0\AgileFlow.Domain.dll
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\bin\Debug\net8.0\AgileFlow.Domain.pdb
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\obj\Debug\net8.0\AgileFlow.Application.csproj.AssemblyReference.cache
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\obj\Debug\net8.0\AgileFlow.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\obj\Debug\net8.0\AgileFlow.Application.AssemblyInfoInputs.cache
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\obj\Debug\net8.0\AgileFlow.Application.AssemblyInfo.cs
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\obj\Debug\net8.0\AgileFlow.Application.csproj.CoreCompileInputs.cache
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\obj\Debug\net8.0\AgileFlow.Application.sourcelink.json
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\obj\Debug\net8.0\AgileFlo.8C814593.Up2Date
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\obj\Debug\net8.0\AgileFlow.Application.dll
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\obj\Debug\net8.0\refint\AgileFlow.Application.dll
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\obj\Debug\net8.0\AgileFlow.Application.pdb
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Application\obj\Debug\net8.0\ref\AgileFlow.Application.dll
