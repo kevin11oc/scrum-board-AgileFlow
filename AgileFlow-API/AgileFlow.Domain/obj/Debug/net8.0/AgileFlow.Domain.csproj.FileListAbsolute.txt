@@ -10,3 +10,4 @@ C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Do
 C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\obj\Debug\net8.0\refint\AgileFlow.Domain.dll
 C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\obj\Debug\net8.0\AgileFlow.Domain.pdb
 C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\obj\Debug\net8.0\ref\AgileFlow.Domain.dll
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Domain\obj\Debug\net8.0\AgileFlow.Domain.csproj.AssemblyReference.cache

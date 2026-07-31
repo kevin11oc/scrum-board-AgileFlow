@@ -1,0 +1,30 @@
+# Variables de entorno
+.env
+!.env.example
+
+# Docker
+pgdata/
+
+# Visual Studio
+.vs/
+**/.vs/
+**/bin/
+**/obj/
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains Rider
+.idea/
+
+# Archivos de usuario
+*.user
+*.suo
+
+# Logs
+*.log
+
+# Angular
+**/node_modules/
+**/dist/
+**/.angular/

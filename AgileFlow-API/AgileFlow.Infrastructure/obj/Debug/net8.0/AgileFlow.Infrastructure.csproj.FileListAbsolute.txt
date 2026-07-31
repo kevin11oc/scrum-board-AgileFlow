@@ -16,3 +16,5 @@ C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.In
 C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Infrastructure\obj\Debug\net8.0\refint\AgileFlow.Infrastructure.dll
 C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Infrastructure\obj\Debug\net8.0\AgileFlow.Infrastructure.pdb
 C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Infrastructure\obj\Debug\net8.0\ref\AgileFlow.Infrastructure.dll
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Infrastructure\bin\Debug\net8.0\AgileFlow.Infrastructure.runtimeconfig.json
+C:\Users\kacer\OneDrive\Desktop\scrum-board-AgileFlow\AgileFlow-API\AgileFlow.Infrastructure\obj\Debug\net8.0\AgileFlow.Infrastructure.genruntimeconfig.cache
