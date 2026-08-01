@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AgileFlow.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e607cfa39ba3433277fa45f6ee8c78a1fd4b9119")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d93d669e56d1a58d7cf774654ce99fc2325cc64c")]
 [assembly: System.Reflection.AssemblyProductAttribute("AgileFlow.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AgileFlow.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
