@@ -12,6 +12,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { ProjectService } from '../../core/services/project.service';
 import { Project, CreateProjectRequest } from '../../core/models/project.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -60,6 +61,8 @@ import { Project, CreateProjectRequest } from '../../core/models/project.model';
                 (onClick)="editProject(project)"></p-button>
               <p-button icon="pi pi-trash" styleClass="p-button-text p-button-sm p-button-danger"
                 (onClick)="confirmDelete(project)"></p-button>
+              <p-button icon="pi pi-th-large" styleClass="p-button-text p-button-sm"
+                (onClick)="openBoard(project)" pTooltip="Abrir tablero"></p-button>
             </td>
           </tr>
         </ng-template>
@@ -131,11 +134,16 @@ export class ProjectsComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.loadProjects();
+  }
+
+  openBoard(project: Project): void {
+    this.router.navigate(['/board', project.id]);
   }
 
   loadProjects(): void {
