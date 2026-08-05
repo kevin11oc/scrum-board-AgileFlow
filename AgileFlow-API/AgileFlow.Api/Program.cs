@@ -72,6 +72,10 @@ builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<LoginUseCase>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<ProjectUseCases>();
+builder.Services.AddScoped<IColumnRepository, ColumnRepository>();
+builder.Services.AddScoped<ColumnUseCases>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<TaskUseCases>();
 
 // CORS
 builder.Services.AddCors(options =>
