@@ -1,4 +1,5 @@
-﻿using AgileFlow.Application.DTOs;
+﻿using AgileFlow.Api.Hubs;
+using AgileFlow.Application.DTOs;
 using AgileFlow.Application.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,12 @@ namespace AgileFlow.Api.Controllers;
 public class ColumnsController : ControllerBase
 {
     private readonly ColumnUseCases _useCases;
+    private readonly BoardNotificationService _notifications;
 
-    public ColumnsController(ColumnUseCases useCases)
+    public ColumnsController(ColumnUseCases useCases, BoardNotificationService notifications)
     {
         _useCases = useCases;
+        _notifications = notifications;
     }
 
     [HttpGet]
@@ -29,6 +32,7 @@ public class ColumnsController : ControllerBase
     {
         request.ProjectId = projectId;
         var result = await _useCases.CreateAsync(request);
+        await _notifications.NotifyColumnCreated(projectId.ToString(), result);
         return CreatedAtAction(nameof(GetAll), new { projectId }, result);
     }
 
@@ -37,6 +41,7 @@ public class ColumnsController : ControllerBase
     {
         var result = await _useCases.UpdateAsync(id, request);
         if (result is null) return NotFound();
+        await _notifications.NotifyColumnUpdated(projectId.ToString(), result);
         return Ok(result);
     }
 
@@ -47,6 +52,7 @@ public class ColumnsController : ControllerBase
         if (!success && error == "not_found") return NotFound();
         if (!success && error == "has_tasks")
             return BadRequest(new { message = "No se puede eliminar una columna que contiene tareas." });
+        await _notifications.NotifyColumnDeleted(projectId.ToString(), id);
         return NoContent();
     }
 

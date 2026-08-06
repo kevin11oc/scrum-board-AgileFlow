@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,6 +16,9 @@ import { ProjectService } from '../../core/services/project.service';
 import { Column } from '../../core/models/column.model';
 import { Task } from '../../core/models/task.model';
 import { Project } from '../../core/models/project.model';
+import { SignalRService } from '../../core/services/signalr.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-board',
@@ -150,7 +153,7 @@ import { Project } from '../../core/models/project.model';
     .drag-over { border: 2px dashed var(--primary-color) !important; }
   `]
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
   projectId = '';
   project: Project | null = null;
   columns: Column[] = [];
@@ -180,12 +183,15 @@ export class BoardComponent implements OnInit {
     { label: 'Baja', value: 'low' }
   ];
 
+  private destroy$ = new Subject<void>();
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private columnService: ColumnService,
     private taskService: TaskService,
     private projectService: ProjectService,
+    private signalRService: SignalRService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) { }
@@ -193,6 +199,71 @@ export class BoardComponent implements OnInit {
   ngOnInit(): void {
     this.projectId = this.route.snapshot.paramMap.get('projectId') ?? '';
     this.loadBoard();
+    this.connectSignalR();
+  }
+
+  connectSignalR(): void {
+    this.signalRService.startConnection();
+
+    this.signalRService.hubConnection?.onclose(() => { });
+
+    setTimeout(() => {
+      this.signalRService.joinBoard(this.projectId);
+    }, 1000);
+
+    this.signalRService.taskCreated$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(task => {
+        if (!this.tasks.find(t => t.id === task.id)) {
+          this.tasks = [...this.tasks, task];
+        }
+      });
+
+    this.signalRService.taskUpdated$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(task => {
+        this.tasks = this.tasks.map(t => t.id === task.id ? task : t);
+      });
+
+    this.signalRService.taskDeleted$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(id => {
+        this.tasks = this.tasks.filter(t => t.id !== id);
+      });
+
+    this.signalRService.taskMoved$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(task => {
+        this.tasks = this.tasks.map(t => t.id === task.id ? task : t);
+      });
+
+    this.signalRService.columnCreated$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(col => {
+        if (!this.columns.find(c => c.id === col.id)) {
+          this.columns = [...this.columns, col].sort((a, b) => a.order - b.order);
+        }
+      });
+
+    this.signalRService.columnUpdated$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(col => {
+        this.columns = this.columns.map(c => c.id === col.id ? col : c);
+      });
+
+    this.signalRService.columnDeleted$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(id => {
+        this.columns = this.columns.filter(c => c.id !== id);
+        this.tasks = this.tasks.filter(t => t.columnId !== id);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.signalRService.leaveBoard(this.projectId);
+    this.signalRService.stopConnection();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   loadBoard(): void {

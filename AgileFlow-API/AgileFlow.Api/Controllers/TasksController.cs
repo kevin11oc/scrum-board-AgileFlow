@@ -1,4 +1,5 @@
-﻿using AgileFlow.Application.DTOs;
+﻿using AgileFlow.Api.Hubs;
+using AgileFlow.Application.DTOs;
 using AgileFlow.Application.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,12 @@ namespace AgileFlow.Api.Controllers;
 public class TasksController : ControllerBase
 {
     private readonly TaskUseCases _useCases;
+    private readonly BoardNotificationService _notifications;
 
-    public TasksController(TaskUseCases useCases)
+    public TasksController(TaskUseCases useCases, BoardNotificationService notifications)
     {
         _useCases = useCases;
+        _notifications = notifications;
     }
 
     [HttpGet]
@@ -28,6 +31,7 @@ public class TasksController : ControllerBase
     public async Task<IActionResult> Create(Guid projectId, [FromBody] CreateTaskRequest request)
     {
         var result = await _useCases.CreateAsync(request);
+        await _notifications.NotifyTaskCreated(projectId.ToString(), result);
         return CreatedAtAction(nameof(GetAll), new { projectId }, result);
     }
 
@@ -36,6 +40,7 @@ public class TasksController : ControllerBase
     {
         var result = await _useCases.UpdateAsync(id, request);
         if (result is null) return NotFound();
+        await _notifications.NotifyTaskUpdated(projectId.ToString(), result);
         return Ok(result);
     }
 
@@ -44,6 +49,7 @@ public class TasksController : ControllerBase
     {
         var deleted = await _useCases.DeleteAsync(id);
         if (!deleted) return NotFound();
+        await _notifications.NotifyTaskDeleted(projectId.ToString(), id);
         return NoContent();
     }
 
@@ -52,6 +58,7 @@ public class TasksController : ControllerBase
     {
         var result = await _useCases.MoveAsync(id, request);
         if (result is null) return NotFound();
+        await _notifications.NotifyTaskMoved(projectId.ToString(), result);
         return Ok(result);
     }
 

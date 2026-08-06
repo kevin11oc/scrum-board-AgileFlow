@@ -1,3 +1,4 @@
+using AgileFlow.Api.Hubs;
 using AgileFlow.Application.Ports;
 using AgileFlow.Application.UseCases;
 using AgileFlow.Domain.Ports;
@@ -63,6 +64,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidAudience = builder.Configuration["JwtSettings:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
         };
+        // Para SignalR
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                {
+                    context.Token = accessToken;
+                }
+                return Task.CompletedTask;
+            }
+        };
     });
 
 // DI
@@ -83,8 +98,13 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend", policy =>
         policy.WithOrigins("http://localhost:4200")
               .AllowAnyHeader()
-              .AllowAnyMethod());
+              .AllowAnyMethod()
+              .AllowCredentials());
 });
+
+// SignalR
+builder.Services.AddSignalR();
+builder.Services.AddScoped<BoardNotificationService>();
 
 var app = builder.Build();
 
@@ -98,4 +118,5 @@ app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapHub<AgileFlow.Api.Hubs.BoardHub>("/hubs/board");
 app.Run();
