@@ -19,6 +19,7 @@ import { Project } from '../../core/models/project.model';
 import { SignalRService } from '../../core/services/signalr.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ReportService } from '../../core/services/report.service';
 
 @Component({
   selector: 'app-board',
@@ -38,7 +39,14 @@ import { takeUntil } from 'rxjs/operators';
           <p-button icon="pi pi-arrow-left" styleClass="p-button-text" (onClick)="goBack()"></p-button>
           <h2 class="m-0">{{ project?.name }}</h2>
         </div>
-        <p-button label="Nueva Columna" icon="pi pi-plus" (onClick)="openNewColumn()"></p-button>
+        <div class="flex align-items-center gap-2">
+          <p-button label="PDF" icon="pi pi-file-pdf" styleClass="p-button-danger p-button-outlined"
+            (onClick)="downloadReport('pdf')"></p-button>
+          <p-button label="Excel" icon="pi pi-file-excel" styleClass="p-button-success p-button-outlined"
+            (onClick)="downloadReport('excel')"></p-button>
+          <p-button label="Nueva Columna" icon="pi pi-plus" (onClick)="openNewColumn()"></p-button>
+        </div>
+
       </div>
 
       <div class="flex gap-3 overflow-x-auto pb-3"
@@ -193,7 +201,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     private projectService: ProjectService,
     private signalRService: SignalRService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private reportService: ReportService,
   ) { }
 
   ngOnInit(): void {
@@ -451,6 +460,23 @@ export class BoardComponent implements OnInit, OnDestroy {
         this.taskService.delete(this.projectId, task.id).subscribe({
           next: () => this.loadBoard()
         });
+      }
+    });
+  }
+
+  downloadReport(format: 'pdf' | 'excel'): void {
+    this.reportService.download(this.projectId, format).subscribe({
+      next: (blob) => {
+        const ext = format === 'pdf' ? 'pdf' : 'xlsx';
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `reporte-${this.projectId}.${ext}`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: () => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo generar el reporte.' });
       }
     });
   }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AgileFlow.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+45017909bd6b16e71b6c81d69190f2878064ea1a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0fb8339f3d6b310c41b139e699fed764d6609cf5")]
 [assembly: System.Reflection.AssemblyProductAttribute("AgileFlow.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AgileFlow.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

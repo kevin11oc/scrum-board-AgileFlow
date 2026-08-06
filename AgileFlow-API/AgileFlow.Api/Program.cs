@@ -3,6 +3,7 @@ using AgileFlow.Application.Ports;
 using AgileFlow.Application.UseCases;
 using AgileFlow.Domain.Ports;
 using AgileFlow.Infrastructure.Persistence;
+using AgileFlow.Infrastructure.Reports;
 using AgileFlow.Infrastructure.Repositories;
 using AgileFlow.Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -91,6 +92,10 @@ builder.Services.AddScoped<IColumnRepository, ColumnRepository>();
 builder.Services.AddScoped<ColumnUseCases>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<TaskUseCases>();
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
+builder.Services.AddScoped<IReportExporter, PdfReportExporter>();
+builder.Services.AddScoped<IReportExporter, ExcelReportExporter>();
+builder.Services.AddScoped<ReportUseCases>();
 
 // CORS
 builder.Services.AddCors(options =>
