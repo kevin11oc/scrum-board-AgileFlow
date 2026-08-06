@@ -124,4 +124,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.MapHub<AgileFlow.Api.Hubs.BoardHub>("/hubs/board");
+// Auto-migrate en Docker
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AgileFlowDbContext>();
+    db.Database.Migrate();
+}
 app.Run();
