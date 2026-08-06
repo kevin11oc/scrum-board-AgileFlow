@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AgileFlow.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4ae1364f18e3faa125a6e06c51b428972da6d25b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+680c20502d092b20c79f1e3d478e8dcc578e5dce")]
 [assembly: System.Reflection.AssemblyProductAttribute("AgileFlow.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AgileFlow.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
