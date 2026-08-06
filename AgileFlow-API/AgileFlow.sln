@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileFlow.Infrastructure", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileFlow.Api", "AgileFlow.Api\AgileFlow.Api.csproj", "{ED8E2FB0-D033-46D6-BB94-5FC78F911DEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileFlow.Tests", "AgileFlow.Tests\AgileFlow.Tests.csproj", "{86771EB2-325A-462C-9334-51997B02CC96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{ED8E2FB0-D033-46D6-BB94-5FC78F911DEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED8E2FB0-D033-46D6-BB94-5FC78F911DEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED8E2FB0-D033-46D6-BB94-5FC78F911DEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86771EB2-325A-462C-9334-51997B02CC96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86771EB2-325A-462C-9334-51997B02CC96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86771EB2-325A-462C-9334-51997B02CC96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86771EB2-325A-462C-9334-51997B02CC96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
