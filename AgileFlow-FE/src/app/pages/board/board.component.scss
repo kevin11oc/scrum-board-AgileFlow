@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+.kanban-column {
+  border: 1px solid var(--surface-border);
+  min-width: 280px;
+  max-width: 280px;
+}
+
+.task-list {
+  min-height: 100px;
+}
+
+.kanban-task {
+  border: 1px solid var(--surface-border);
+  transition: box-shadow 0.2s;
+  cursor: grab;
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.drag-over {
+  border: 2px dashed var(--primary-color) !important;
+}

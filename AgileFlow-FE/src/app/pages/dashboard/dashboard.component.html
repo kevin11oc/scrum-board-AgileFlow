@@ -1,1 +1,112 @@
-<p>dashboard works!</p>
+<div class="grid">
+  <div class="col-12">
+    <div class="card mb-0">
+      <h2 class="m-0 mb-1">Bienvenido, {{ userName }}</h2>
+      <span class="text-600">Panel de control de AgileFlow</span>
+    </div>
+  </div>
+
+  <!-- Métricas -->
+  <div class="col-12 md:col-6 lg:col-3">
+    <div class="card flex align-items-center gap-3">
+      <div class="flex align-items-center justify-content-center border-round"
+        style="width:48px;height:48px;background:var(--blue-100)">
+        <i class="pi pi-folder text-blue-500 text-2xl"></i>
+      </div>
+      <div>
+        <span class="block text-500 font-medium mb-1">Total Proyectos</span>
+        <span class="text-900 font-bold text-2xl">{{ totalProjects }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 md:col-6 lg:col-3">
+    <div class="card flex align-items-center gap-3">
+      <div class="flex align-items-center justify-content-center border-round"
+        style="width:48px;height:48px;background:var(--green-100)">
+        <i class="pi pi-check-circle text-green-500 text-2xl"></i>
+      </div>
+      <div>
+        <span class="block text-500 font-medium mb-1">Proyectos Activos</span>
+        <span class="text-900 font-bold text-2xl">{{ activeProjects }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 md:col-6 lg:col-3">
+    <div class="card flex align-items-center gap-3">
+      <div class="flex align-items-center justify-content-center border-round"
+        style="width:48px;height:48px;background:var(--orange-100)">
+        <i class="pi pi-check-square text-orange-500 text-2xl"></i>
+      </div>
+      <div>
+        <span class="block text-500 font-medium mb-1">Proyectos Completados</span>
+        <span class="text-900 font-bold text-2xl">{{ completedProjects }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 md:col-6 lg:col-3">
+    <div class="card flex align-items-center gap-3">
+      <div class="flex align-items-center justify-content-center border-round"
+        style="width:48px;height:48px;background:var(--purple-100)">
+        <i class="pi pi-users text-purple-500 text-2xl"></i>
+      </div>
+      <div>
+        <span class="block text-500 font-medium mb-1">Usuario</span>
+        <span class="text-900 font-bold text-lg">{{ userEmail }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Proyectos recientes -->
+  <div class="col-12">
+    <div class="card">
+      <div class="flex justify-content-between align-items-center mb-4">
+        <h5 class="m-0">Proyectos Recientes</h5>
+        <p-button label="Ver todos" styleClass="p-button-text p-button-sm"
+          (onClick)="goToProjects()"></p-button>
+      </div>
+
+      <p-table [value]="recentProjects" [loading]="loading" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-project>
+          <tr>
+            <td>{{ project.name }}</td>
+            <td>
+              <span class="border-round px-2 py-1 text-sm"
+                [ngClass]="{
+                  'bg-green-100 text-green-700': project.status === 'active',
+                  'bg-blue-100 text-blue-700': project.status === 'completed',
+                  'bg-gray-100 text-gray-700': project.status === 'inactive'
+                }">
+                {{ project.status }}
+              </span>
+            </td>
+            <td>{{ project.startDate | date:'dd/MM/yyyy' }}</td>
+            <td>{{ project.endDate | date:'dd/MM/yyyy' }}</td>
+            <td>
+              <p-button icon="pi pi-th-large" styleClass="p-button-text p-button-sm"
+                pTooltip="Abrir tablero" (onClick)="goToBoard(project.id)"></p-button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="5" class="text-center text-600">
+              No hay proyectos aún. <a class="cursor-pointer text-primary" (click)="goToProjects()">Crea uno.</a>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
