@@ -40,11 +40,13 @@
 
       <div class="flex flex-column gap-2 mb-3 task-list">
         <div *ngFor="let task of getTasksByColumn(column.id)"
-             class="kanban-task surface-ground border-round p-3"
-             draggable="true"
-             [attr.data-task-id]="task.id"
-             (dragstart)="onTaskDragStart($event, task)"
-             (dragend)="onTaskDragEnd()">
+          class="kanban-task surface-ground border-round p-3"
+          draggable="true"
+          [attr.data-task-id]="task.id"
+          (dragstart)="onTaskDragStart($event, task)"
+          (dragend)="onTaskDragEnd()"
+          (dragover)="onTaskDragOver($event, task)"
+          (drop)="onTaskDrop($event, task, column)">
 
           <div class="flex justify-content-between align-items-start mb-2">
             <span class="font-medium text-900 text-sm">{{ task.title }}</span>

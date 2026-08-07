@@ -54,6 +54,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   // Task dialog
   taskDialogVisible = false;
   taskEditMode = false;
+  dragOverTask: Task | null = null;
   selectedTaskId = '';
   selectedColumnForTask = '';
   taskForm = { title: '', description: '', priority: 'medium', assigneeId: null as string | null };
@@ -188,6 +189,85 @@ export class BoardComponent implements OnInit, OnDestroy {
   onTaskDragEnd(): void {
     document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
     document.querySelectorAll('.kanban-task').forEach(el => (el as HTMLElement).style.opacity = '1');
+    this.draggedTask = null;
+  }
+
+  onTaskDragOver(event: DragEvent, task: Task): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.dragOverTask = task;
+  }
+
+  onTaskDrop(event: DragEvent, targetTask: Task, column: Column): void {
+    event.preventDefault();
+    event.stopPropagation();
+    document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+
+    if (!this.draggedTask) return;
+    if (this.draggedTask.id === targetTask.id) return;
+
+    const isSameColumn = this.draggedTask.columnId === targetTask.columnId;
+
+    if (isSameColumn) {
+      const columnTasks = this.getTasksByColumn(column.id);
+      const draggedIndex = columnTasks.findIndex(t => t.id === this.draggedTask!.id);
+      const targetIndex = columnTasks.findIndex(t => t.id === targetTask.id);
+
+      const reordered = [...columnTasks];
+      reordered.splice(draggedIndex, 1);
+      reordered.splice(targetIndex, 0, this.draggedTask!);
+      reordered.forEach((t, i) => {
+        const task = this.tasks.find(x => x.id === t.id);
+        if (task) task.order = i + 1;
+      });
+
+      const orderedIds = reordered.map(t => t.id);
+
+      this.taskService.reorder(this.projectId, column.id, { orderedIds }).subscribe({
+        error: () => {
+          this.loadBoard();
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'No se pudo reordenar.'
+          });
+        }
+      });
+    } else {
+      const tasksInTarget = this.getTasksByColumn(targetTask.columnId);
+      const targetIndex = tasksInTarget.findIndex(t => t.id === targetTask.id);
+      const newOrder = targetIndex + 1;
+
+      const originalColumnId = this.draggedTask.columnId;
+      const originalOrder = this.draggedTask.order;
+      this.draggedTask.columnId = targetTask.columnId;
+      this.draggedTask.order = newOrder;
+
+      this.taskService.move(this.projectId, this.draggedTask.id, {
+        newColumnId: targetTask.columnId,
+        newOrder
+      }).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Tarea movida',
+            detail: `Movida a "${column.name}"`
+          });
+        },
+        error: () => {
+          this.draggedTask!.columnId = originalColumnId;
+          this.draggedTask!.order = originalOrder;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'No se pudo mover la tarea.'
+          });
+        }
+      });
+    }
+
+    this.draggedTask = null;
+    this.dragOverTask = null;
   }
 
   onColumnDragOver(event: DragEvent, column: Column): void {
@@ -202,34 +282,42 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   onColumnDrop(event: DragEvent, targetColumn: Column): void {
     event.preventDefault();
-    (event.currentTarget as HTMLElement).classList.remove('drag-over');
+    document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
 
     if (!this.draggedTask) return;
-    if (this.draggedTask.columnId === targetColumn.id) return;
 
-    const tasksInTarget = this.getTasksByColumn(targetColumn.id);
-    const newOrder = tasksInTarget.length + 1;
+    // Mover entre columnas
+    if (this.draggedTask.columnId !== targetColumn.id) {
+      const tasksInTarget = this.getTasksByColumn(targetColumn.id);
+      const newOrder = tasksInTarget.length + 1;
 
-    // Optimistic update
-    const originalColumnId = this.draggedTask.columnId;
-    const originalOrder = this.draggedTask.order;
-    this.draggedTask.columnId = targetColumn.id;
-    this.draggedTask.order = newOrder;
+      const originalColumnId = this.draggedTask.columnId;
+      const originalOrder = this.draggedTask.order;
+      this.draggedTask.columnId = targetColumn.id;
+      this.draggedTask.order = newOrder;
 
-    this.taskService.move(this.projectId, this.draggedTask.id, {
-      newColumnId: targetColumn.id,
-      newOrder
-    }).subscribe({
-      next: () => {
-        this.messageService.add({ severity: 'success', summary: 'Tarea movida', detail: '' });
-      },
-      error: () => {
-        // Revert
-        this.draggedTask!.columnId = originalColumnId;
-        this.draggedTask!.order = originalOrder;
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo mover la tarea.' });
-      }
-    });
+      this.taskService.move(this.projectId, this.draggedTask.id, {
+        newColumnId: targetColumn.id,
+        newOrder
+      }).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Tarea movida',
+            detail: `Movida a "${targetColumn.name}"`
+          });
+        },
+        error: () => {
+          this.draggedTask!.columnId = originalColumnId;
+          this.draggedTask!.order = originalOrder;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'No se pudo mover la tarea.'
+          });
+        }
+      });
+    }
 
     this.draggedTask = null;
   }
