@@ -111,25 +111,17 @@ Una sola consulta a la BD (`GetProjectReportAsync`) genera el `ProjectReportDto`
 
 ## 🗄️ Diagrama del modelo de base de datos
 
-```
-┌─────────────┐       ┌─────────────┐       ┌─────────────┐       ┌─────────────┐
-│    Users    │       │  Projects   │       │   Columns   │       │    Tasks    │
-│─────────────│       │─────────────│       │─────────────│       │─────────────│
-│ Id (PK)     │◄──┐   │ Id (PK)     │◄──┐   │ Id (PK)     │◄──┐   │ Id (PK)     │
-│ Name        │   │   │ Name        │   │   │ Name        │   │   │ Title       │
-│ Email       │   │   │ Description │   │   │ Order       │   │   │ Description │
-│ PasswordHash│   │   │ StartDate   │   │   │ ProjectId   │───┘   │ Priority    │
-│ CreatedAt   │   │   │ EndDate     │   │   └─────────────┘       │ ColumnId    │───┘
-└─────────────┘   │   │ Status      │   │                         │ AssigneeId  │───┐
-                  │   │ CreatedAt   │   │                         │ Order       │   │
-                  │   └─────────────┘   │                         │ CreatedAt   │   │
-                  │                     │                         └─────────────┘   │
-                  └─────────────────────┴─────────────────────────────────────────┘
-```
+![ERD AgileFlow](./docs/erd.png)
 
 ---
 
 ## 🤖 Uso de inteligencia artificial
+
+Se utilizó **Claude (Anthropic)** como asistente en las siguientes áreas de soporte:
+
+- **Scaffolding inicial:** generación de la estructura base de carpetas y proyectos (.NET solution, Angular workspace).
+- **Configuración de herramientas:** setup de Docker Compose, nginx y configuración inicial de QuestPDF/ClosedXML.
+- **Documentación:** Generacion del archivo README 
 
 
 
