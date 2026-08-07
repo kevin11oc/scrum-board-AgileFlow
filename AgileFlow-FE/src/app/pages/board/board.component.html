@@ -121,6 +121,17 @@
       <p-dropdown [(ngModel)]="taskForm.priority" [options]="priorityOptions"
         optionLabel="label" optionValue="value" styleClass="w-full"></p-dropdown>
     </div>
+    <div class="flex flex-column gap-1">
+  <label>Responsable</label>
+  <p-dropdown [(ngModel)]="taskForm.assigneeId"
+    [options]="users"
+    optionLabel="name"
+    optionValue="id"
+    placeholder="Sin asignar"
+    [showClear]="true"
+    styleClass="w-full">
+  </p-dropdown>
+</div>
   </div>
   <ng-template pTemplate="footer">
     <p-button label="Cancelar" styleClass="p-button-text"

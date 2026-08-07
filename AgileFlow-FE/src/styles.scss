@@ -12,3 +12,22 @@ $gutter: 1rem; //for primeflex grid system
 @import "assets/demo/styles/flags/flags.css";
 @import "assets/demo/styles/badges.scss";
 @import "assets/demo/styles/code.scss";
+
+
+* {
+  box-sizing: border-box;
+}
+
+// Fix dropdown dentro de dialogs
+.p-dialog {
+  overflow: visible !important;
+}
+
+.p-dialog .p-dialog-content {
+  overflow: visible !important;
+}
+
+// Fix para dropdowns en general
+.p-dropdown-panel {
+  z-index: 9999 !important;
+}

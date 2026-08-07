@@ -20,6 +20,8 @@ import { SignalRService } from '../../core/services/signalr.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ReportService } from '../../core/services/report.service';
+import { UserService } from '../../core/services/user.service';
+import { User } from '../../core/models/user.model';
 
 @Component({
   selector: 'app-board',
@@ -54,13 +56,15 @@ export class BoardComponent implements OnInit, OnDestroy {
   taskEditMode = false;
   selectedTaskId = '';
   selectedColumnForTask = '';
-  taskForm = { title: '', description: '', priority: 'medium' };
+  taskForm = { title: '', description: '', priority: 'medium', assigneeId: null as string | null };
 
   priorityOptions = [
     { label: 'Alta', value: 'high' },
     { label: 'Media', value: 'medium' },
     { label: 'Baja', value: 'low' }
   ];
+
+  users: User[] = [];
 
   private destroy$ = new Subject<void>();
 
@@ -74,12 +78,14 @@ export class BoardComponent implements OnInit, OnDestroy {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private reportService: ReportService,
+    private userService: UserService,
   ) { }
 
   ngOnInit(): void {
     this.projectId = this.route.snapshot.paramMap.get('projectId') ?? '';
     this.loadBoard();
     this.connectSignalR();
+    this.userService.getAll().subscribe(users => this.users = users);
   }
 
   connectSignalR(): void {
@@ -284,7 +290,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   openNewTask(column: Column): void {
     this.selectedColumnForTask = column.id;
-    this.taskForm = { title: '', description: '', priority: 'medium' };
+    this.taskForm = { title: '', description: '', priority: 'medium', assigneeId: null };
     this.taskEditMode = false;
     this.taskDialogVisible = true;
   }
@@ -292,7 +298,12 @@ export class BoardComponent implements OnInit, OnDestroy {
   editTask(task: Task): void {
     this.selectedTaskId = task.id;
     this.selectedColumnForTask = task.columnId;
-    this.taskForm = { title: task.title, description: task.description, priority: task.priority };
+    this.taskForm = {
+      title: task.title,
+      description: task.description,
+      priority: task.priority,
+      assigneeId: task.assigneeId ?? null
+    };
     this.taskEditMode = true;
     this.taskDialogVisible = true;
   }
@@ -305,13 +316,15 @@ export class BoardComponent implements OnInit, OnDestroy {
       ? this.taskService.update(this.projectId, this.selectedTaskId, {
         title: this.taskForm.title,
         description: this.taskForm.description,
-        priority: this.taskForm.priority
+        priority: this.taskForm.priority,
+        assigneeId: this.taskForm.assigneeId ?? undefined
       })
       : this.taskService.create(this.projectId, {
         title: this.taskForm.title,
         description: this.taskForm.description,
         priority: this.taskForm.priority,
-        columnId: this.selectedColumnForTask
+        columnId: this.selectedColumnForTask,
+        assigneeId: this.taskForm.assigneeId ?? undefined
       });
 
     request$.subscribe({

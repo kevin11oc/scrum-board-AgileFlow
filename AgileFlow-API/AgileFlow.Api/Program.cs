@@ -96,6 +96,7 @@ builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddScoped<IReportExporter, PdfReportExporter>();
 builder.Services.AddScoped<IReportExporter, ExcelReportExporter>();
 builder.Services.AddScoped<ReportUseCases>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // CORS
 builder.Services.AddCors(options =>
